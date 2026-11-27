@@ -1,6 +1,6 @@
 {
   "name": "key-scroll",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "description": "Chromium extension: scroll anchors and constant frame-rate MP4 recording of a tab at an exact viewport size.",
   "license": "GPL-3.0-only",

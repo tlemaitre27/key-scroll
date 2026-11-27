@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Key Scroll",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Scroll anchors and constant frame-rate MP4 recording of a tab at an exact viewport size, for design case studies.",
   "minimum_chrome_version": "116",
   "icons": {

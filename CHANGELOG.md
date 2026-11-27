@@ -8,6 +8,13 @@ Versions up to 0.1.0 were built before the project was on GitHub, so they have n
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-11-27
+
+### Added
+
+- Changelog of every version since the first prototype.
+- "What's new" in the settings page, with a one-time notice in the popup after an update.
+
 ## [0.1.0]
 
 ### Added
@@ -25,7 +32,6 @@ Versions up to 0.1.0 were built before the project was on GitHub, so they have n
 - Frame rate setting: 24, 25, 30, 50 or 60 fps (60 by default).
 - Element picker: Cancel button, and Esc now works without clicking the page first.
 - The shortcuts list shows the shortcuts actually assigned in the browser.
-- "What's new" in the settings page, and a notice in the popup after an update.
 
 ### Changed
 
