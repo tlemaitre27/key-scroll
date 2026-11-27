@@ -92,6 +92,25 @@ async function loadPage(url) {
 }
 
 // =====================================================================
+// "Updated" notice (set by the service worker after an update, see background.js)
+// =====================================================================
+
+async function setupUpdateNotice() {
+  const version = chrome.runtime.getManifest().version;
+  const { whatsNew } = await chrome.storage.local.get('whatsNew');
+  if (whatsNew !== version) return;
+  $('updateText').textContent = `Key Scroll was updated to ${version}.`;
+  $('updateNotice').hidden = false;
+  $('updateOpen').addEventListener('click', () => {
+    chrome.tabs.create({ url: chrome.runtime.getURL('options/options.html#whats-new') });
+  });
+  $('updateClose').addEventListener('click', () => {
+    $('updateNotice').hidden = true;
+    chrome.storage.local.remove('whatsNew');
+  });
+}
+
+// =====================================================================
 // Init
 // =====================================================================
 
@@ -101,6 +120,7 @@ async function init() {
   state.next = { ...KS_ANCHOR_DEFAULTS, ...((await chrome.storage.local.get('globals')).globals || {}) };
 
   $('settings').addEventListener('click', () => chrome.runtime.openOptionsPage());
+  setupUpdateNotice();
   setupCssTab();
   setupTabs();
   setupAnchorsTab();

@@ -10,6 +10,7 @@
       <img src="../assets/icons/logo.svg" width="111" height="21.344" alt="key scroll" />
       <h1>Settings</h1>
       <span class="ver" id="ver"></span>
+      <button class="whatsNewBtn" id="whatsNewBtn" type="button">What's new</button>
       <span class="saved" id="saved">Saved</span>
     </div>
   </header>
@@ -165,10 +166,19 @@
     <div class="icons" id="icons"></div>
   </main>
 
+  <dialog id="whatsNew" aria-labelledby="whatsNewTitle">
+    <div class="dlgHead">
+      <h2 class="title" id="whatsNewTitle">What's new</h2>
+      <button class="btn icon" id="whatsNewClose" type="button" aria-label="Close">✕</button>
+    </div>
+    <div id="changelog" class="changelog"></div>
+  </dialog>
+
   <script src="../lib/defaults.js"></script>
   <script src="../lib/easing.js"></script>
   <script src="../lib/files.js"></script>
   <script src="../lib/sizes.js"></script>
   <script src="../lib/cursor-icons.js"></script>
   <script src="options.js"></script>
+  <script src="whats-new.js"></script>
 </html>

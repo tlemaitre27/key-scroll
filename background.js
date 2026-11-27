@@ -49,7 +49,12 @@ chrome.runtime.onStartup.addListener(setToolbarIcon);
 // Storage migrations (run on install / update / reload)
 // =====================================================================
 
-chrome.runtime.onInstalled.addListener(async () => {
+chrome.runtime.onInstalled.addListener(async (details) => {
+  // Updated to a new version: the popup shows a "What's new" notice until it is opened or dismissed.
+  const version = chrome.runtime.getManifest().version;
+  if (details.reason === 'update' && details.previousVersion && details.previousVersion !== version) {
+    await chrome.storage.local.set({ whatsNew: version });
+  }
   const { globals = {} } = await chrome.storage.local.get('globals');
   await freezeAnchorValues(globals);
   // A default easing changed since this install: apply the new one once.

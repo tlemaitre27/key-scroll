@@ -33,6 +33,7 @@ npm run format    # format with Prettier
 - **Nothing visible in the page** unless it is meant to be recorded: feedback goes to the toolbar badge or the popup, never into the page.
 - **Storage changes need a migration.** If you rename or change the shape of a stored value, add a one-time migration in `background.js` (see `freezeAnchorValues`) so existing users keep their anchors and settings.
 - Pure functions in `lib/` should come with a test in `tests/`.
+- Every change users can notice gets a line under `## [Unreleased]` in [CHANGELOG.md](CHANGELOG.md) (Added, Changed, Fixed or Removed).
 
 ## License of contributions
 

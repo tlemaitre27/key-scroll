@@ -88,6 +88,22 @@ After changing a file, click the reload button of Key Scroll in `chrome://extens
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for conventions and pull requests.
 
+## Versions and releases
+
+Changes are listed in [CHANGELOG.md](CHANGELOG.md), which the extension also shows in its settings page (**What's new**).
+
+- While working, every visible change gets a line under `## [Unreleased]` at the top of the changelog: it collects what is
+  done but not released yet.
+- To release a version (for example 0.1.1):
+  1. rename `## [Unreleased]` to `## [0.1.1] - YYYY-MM-DD` and add a new empty `## [Unreleased]` above it;
+  2. set the same version in `manifest.json` and `package.json`;
+  3. commit, tag (`git tag v0.1.1`) and push with the tag (`git push --follow-tags`);
+  4. create a GitHub release for the tag with the changelog section as notes and the zip from `npm run package`.
+- Version numbers follow [Semantic Versioning](https://semver.org/): 0.1.**1** for fixes, 0.**2**.0 for new features,
+  **1**.0.0 for the first stable public version.
+
+After an update, the popup shows a one-time notice that links to What's new.
+
 ## Credits
 
 - [mp4-muxer](https://github.com/Vanilagy/mp4-muxer) by Vanilagy, MIT license (`vendor/mp4-muxer.LICENSE`).
