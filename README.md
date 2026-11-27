@@ -2,13 +2,40 @@
 
 A Chromium extension (Chrome, Opera, Edge, Brave…) to record smooth, repeatable scroll videos of a website for design case studies.
 
+![Key Scroll: smooth scroll videos of any website](docs/images/key-scroll.png)
+
 - **Scroll anchors**: save scroll positions on a page, then glide between them with a keyboard shortcut or play them all in sequence. Each anchor can have its own speed, pause and easing curve.
 - **Exact viewport size**: resize the window so the page is exactly 1440 × 900, 1080 × 1350, etc.
 - **Clean MP4 recording**: the tab is recorded at a constant frame rate (60 fps by default) with hardware H.264 encoding, straight to your Downloads folder.
 - **Drawn cursor**: the real mouse pointer is replaced by a crisp cursor (custom, Mac or Windows style) that can show clicks and hide away from links.
 - **Custom CSS per page**: hide cookie banners, chat bubbles… only while recording or when previewing.
 
-Everything runs locally in the browser. Nothing is sent anywhere.
+Everything runs locally in the browser. Nothing is sent anywhere (see the [privacy policy](PRIVACY.md)).
+
+## Overview
+
+<table>
+  <tr>
+    <td width="33%" valign="top"><img src="docs/images/popup-anchors.png" alt="Anchors tab" width="100%"></td>
+    <td width="33%" valign="top"><img src="docs/images/popup-editor.png" alt="Anchor editor with the curve editor" width="100%"></td>
+    <td width="33%" valign="top"><img src="docs/images/popup-record.png" alt="Record tab" width="100%"></td>
+  </tr>
+  <tr>
+    <td valign="top"><b>Anchors</b><br>Save the moments of the page as anchors. The fields at the top pre-fill the next anchor you add. Glide to the next or previous one, or play them all in a row.</td>
+    <td valign="top"><b>Anchor editor</b><br>Each anchor has a name, a position, its own speed, pause and easing. Shape the move in the curve editor and preview it before you record.</td>
+    <td valign="top"><b>Record</b><br>Pick a size, apply it (the window is resized so the page is exactly that size), then record. The MP4 goes straight to your Downloads folder.</td>
+  </tr>
+  <tr>
+    <td valign="top"><img src="docs/images/popup-cursor.png" alt="Cursor tab" width="100%"></td>
+    <td valign="top"><img src="docs/images/popup-css.png" alt="CSS tab" width="100%"></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td valign="top"><b>Cursor</b><br>Draw a clean cursor in the video (custom, Mac or Windows style), always or only near links, with click feedback. The list shows your keyboard shortcuts.</td>
+    <td valign="top"><b>CSS</b><br>Custom CSS for each page, with an element picker, to hide cookie banners or chat bubbles while you record.</td>
+    <td></td>
+  </tr>
+</table>
 
 ## Install (from source)
 
@@ -30,12 +57,12 @@ Shortcuts can be changed at `chrome://extensions/shortcuts`. The settings page (
 
 ### Permissions
 
-| Permission                                     | Why                                                                                                                          |
-| ---------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| `tabCapture`, `offscreen`                      | Record the tab and encode the video in a hidden document.                                                                    |
-| `downloads`                                    | Save the video to the Downloads folder.                                                                                      |
-| `scripting`, `activeTab`, `tabs`, `<all_urls>` | Scroll the page, add the drawn cursor and the custom CSS, measure and resize the viewport, on any site you choose to record. |
-| `storage`                                      | Remember anchors, custom CSS and settings.                                                                                   |
+| Permission                             | Why                                                                                                                          |
+| -------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| `tabCapture`, `offscreen`              | Record the tab and encode the video in a hidden document.                                                                    |
+| `downloads`                            | Save the video to the Downloads folder.                                                                                      |
+| `scripting`, `activeTab`, `<all_urls>` | Scroll the page, add the drawn cursor and the custom CSS, measure and resize the viewport, on any site you choose to record. |
+| `storage`                              | Remember anchors, custom CSS and settings.                                                                                   |
 
 ## Project structure
 
@@ -58,6 +85,7 @@ popup/                Toolbar popup (ES modules, one per tab)
 options/              Settings page
 styles/theme.css      Dark theme shared by the popup and the settings page
 assets/               Fonts (subset WOFF2) and icons (SVG)
+docs/images/          Screenshots used in this README (not shipped)
 vendor/mp4-muxer.js   Third-party MP4 muxer (MIT)
 tests/                Unit tests of lib/ (Node's built-in test runner)
 ```
