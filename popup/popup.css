@@ -1,0 +1,603 @@
+/* Popup layout; shared components are in styles/theme.css. */
+body {
+  width: 366px;
+}
+
+/* ---------- Header + tabs (positions from the design) ---------- */
+.heading {
+  position: relative;
+  height: 58px;
+  background: var(--bg-head);
+}
+.logo {
+  position: absolute;
+  left: 24px;
+  top: 20px;
+  display: block;
+  width: 111px;
+  height: 21.344px;
+}
+.headBtns {
+  position: absolute;
+  left: 198px;
+  top: 12px;
+  display: flex;
+  gap: 8px;
+}
+.headLinks {
+  position: absolute;
+  right: 24px;
+  top: 20px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.linkIcon {
+  background: none;
+  border: 0;
+  padding: 0;
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  opacity: 0.9;
+}
+.linkIcon:hover:not(:disabled) {
+  opacity: 1;
+}
+.linkIcon:disabled {
+  opacity: 0.9;
+  cursor: default;
+}
+.linkIcon img {
+  display: block;
+}
+
+/* Header record button: circle (start) / square (stop).
+   10 px white dot with a 2 px ring of 40 % white around it (14 px in total). */
+.recDot {
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50px;
+  background: var(--text);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.4);
+}
+#hRec.recording .recDot {
+  border-radius: 2px;
+  box-shadow: none;
+}
+#hRec.recording {
+  animation: pulse 1.6s ease-in-out infinite;
+}
+@keyframes pulse {
+  50% {
+    background: #b51d30;
+  }
+}
+
+.tabs {
+  height: 46px;
+  background: var(--line);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 24px;
+}
+.tabs button {
+  flex: 1 1 0;
+  min-width: 0;
+  border: 0;
+  border-radius: 8px;
+  padding: 8px 0;
+  background: none;
+  cursor: pointer;
+  font: 700 14px/1 var(--sans);
+  letter-spacing: -0.28px;
+  color: var(--muted);
+  transition:
+    color 0.12s,
+    background-color 0.12s;
+}
+.tabs button:hover {
+  color: #a9b6bd;
+}
+.tabs button[aria-selected='true'] {
+  background: rgba(242, 242, 242, 0.12);
+  color: var(--text);
+}
+
+/* ---------- Content ---------- */
+main {
+  padding: 23px 24px 24px;
+}
+section.tab > .title {
+  margin-bottom: 12px;
+}
+section.tab > .title.sp16 {
+  margin-bottom: 16px;
+}
+.sp16 {
+  margin-top: 16px;
+}
+section.tab > .title.sp16:first-child {
+  margin-top: 0;
+}
+.wide {
+  width: 100%;
+}
+
+.fields {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 8px;
+}
+.fields > * {
+  flex: 1 0 0;
+  min-width: 150px;
+}
+.withBtn {
+  display: flex;
+  gap: 4px;
+  align-items: flex-end;
+}
+.withBtn > .field {
+  flex: 1 0 0;
+}
+input.ease {
+  font-variant-numeric: tabular-nums;
+}
+
+#add {
+  margin-top: 16px;
+}
+.grid2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+#add + .grid2 {
+  margin-top: 16px;
+}
+.flipY {
+  transform: scaleY(-1);
+}
+.msg {
+  color: var(--error);
+  font-size: 12px;
+  line-height: 1.4;
+  letter-spacing: -0.36px;
+}
+.msg:not(:empty) {
+  margin-top: 8px;
+}
+
+.box.empty {
+  margin-top: 24px;
+}
+.box.empty span {
+  opacity: 0.5;
+}
+
+/* ---------- Anchor list ---------- */
+ol#list {
+  list-style: none;
+  margin: 24px 0 0;
+  padding: 0;
+}
+ol#list:empty {
+  display: none;
+}
+ol#list > li {
+  list-style: none;
+}
+#editor .bullets li {
+  list-style: disc;
+}
+.anchor {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px;
+  border-radius: 8px;
+  font-size: 12px;
+  letter-spacing: -0.36px;
+  transition: background-color 0.18s ease;
+}
+.anchor .lbl {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  opacity: 0.7;
+  min-width: 0;
+  transition: opacity 0.18s ease;
+}
+.anchor .lbl .n {
+  font-variant-numeric: lining-nums tabular-nums;
+}
+.anchor .lbl .nm {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.anchor .acts {
+  display: flex;
+  gap: 8px;
+  opacity: 0;
+  transition: opacity 0.18s ease;
+}
+.anchor:hover,
+.anchor.open {
+  background: var(--field);
+}
+.anchor:hover .lbl,
+.anchor.open .lbl {
+  opacity: 1;
+}
+.anchor:hover .acts,
+.anchor.open .acts,
+.anchor .acts:focus-within {
+  opacity: 1;
+}
+.anchor .ib {
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  cursor: pointer;
+  flex: none;
+  transition: background-color 0.15s ease;
+}
+.anchor .ib:hover,
+.anchor.open .ib[data-act='edit'] {
+  background: var(--btn);
+}
+.anchor .ib img {
+  display: block;
+}
+.grip {
+  width: 18px;
+  height: 18px;
+  flex: none;
+  display: grid;
+  place-content: center;
+  cursor: grab;
+  touch-action: none;
+}
+.grip i {
+  display: grid;
+  grid-template-columns: 2px 2px;
+  gap: 1.5px;
+}
+.grip i b {
+  width: 2px;
+  height: 2px;
+  border-radius: 50px;
+  background: var(--text);
+}
+li.dragging .anchor {
+  background: var(--btn);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45);
+}
+li.dragging {
+  position: relative;
+  z-index: 2;
+}
+body.dragging,
+body.dragging * {
+  cursor: grabbing !important;
+  user-select: none;
+}
+
+/* ---------- Anchor editor ---------- */
+#editor {
+  margin: 8px 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 16px 7px 16px;
+}
+.eTitle {
+  margin: 0 0 16px;
+  font: 500 12px/1 var(--sans);
+  letter-spacing: -0.24px;
+  color: var(--muted);
+}
+.eFields {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 8px;
+}
+.eFields > * {
+  flex: 1 0 0;
+  min-width: 140px;
+}
+#editor .curveHost {
+  margin-top: 24px;
+}
+.eBtns {
+  display: flex;
+  gap: 8px;
+  margin-top: 24px;
+}
+.eBtns .btn {
+  flex: 1 0 0;
+  min-width: 0;
+}
+#editor .bullets {
+  margin-top: 24px;
+}
+
+/* ---------- Curve editor ---------- */
+.curveHost {
+  margin-top: 16px;
+}
+.graph {
+  position: relative;
+  height: 160px;
+  display: flex;
+}
+.graph svg.curve {
+  position: absolute;
+  left: 0;
+  top: 0;
+  overflow: visible;
+  touch-action: none;
+  user-select: none;
+}
+.graph .bg {
+  fill: var(--field);
+  stroke: var(--line);
+}
+.graph .grid line {
+  stroke: var(--line);
+  stroke-width: 1;
+}
+.graph .diag {
+  stroke: var(--text);
+  stroke-opacity: 0.3;
+  stroke-dasharray: 3 3;
+}
+.graph .arm1 {
+  stroke: var(--text);
+  stroke-width: 0.5;
+}
+.graph .arm2 {
+  stroke: var(--text);
+  stroke-width: 1;
+}
+.graph .bez {
+  fill: none;
+  stroke: var(--text);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+.graph .h {
+  fill: var(--blue-soft);
+  stroke: var(--blue);
+  stroke-width: 2;
+  cursor: grab;
+}
+.graph .h:active {
+  cursor: grabbing;
+}
+.graph .track {
+  position: absolute;
+  left: 186.5px;
+  top: 0;
+  width: 16px;
+  height: 160px;
+}
+.graph .track::before {
+  content: '';
+  position: absolute;
+  left: 7.5px;
+  top: 0;
+  width: 1px;
+  height: 160px;
+  background: var(--line);
+}
+.graph .track .ball {
+  position: absolute;
+  left: 0;
+  top: 152px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--blue);
+}
+.graph .replay {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+/* ---------- Record ---------- */
+.row2 {
+  display: flex;
+  gap: 8px;
+}
+.row2 > .btn {
+  flex: 1 0 0;
+  min-width: 0;
+}
+#rec .dot {
+  width: 8px;
+  height: 8px;
+  margin: 0 2px;
+  border-radius: 50px;
+  background: var(--text);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.4);
+}
+#stop .square {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  background: var(--text);
+}
+.toggleRow label {
+  cursor: pointer;
+}
+.box.log {
+  margin-top: 24px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 160px;
+  overflow: auto;
+}
+.box.log.idle {
+  opacity: 0.7;
+}
+.sizeRow {
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+  margin-top: 16px;
+}
+.sizeRow > .field {
+  flex: 1 0 0;
+}
+
+.sizeBtns {
+  margin-top: 16px;
+}
+
+/* ---------- Cursor ---------- */
+.row3 {
+  display: flex;
+  gap: 8px;
+}
+.row3 > .field {
+  flex: 1 0 0;
+}
+
+/* ---------- CSS ---------- */
+
+.cssWrap {
+  position: relative;
+  margin-top: 8px;
+}
+.code {
+  position: relative;
+  --c-sel: #d7a6ff;
+  --c-prop: #7cc4ff;
+  --c-val: #8ee6b0;
+  --c-num: #ffb86b;
+  --c-str: #ff9b9b;
+  --c-com: #8b8b8b;
+  --c-at: #f19bff;
+  --c-imp: #ff6b6b;
+  --c-var: #6fe0e8;
+  --c-punct: #aab4ba;
+}
+.code pre,
+.code textarea {
+  margin: 0;
+  width: 100%;
+  min-height: 197px;
+  border: 0;
+  border-radius: 8px;
+  padding: 10px 8px 34px;
+  font: 400 12px/1.45 var(--mono);
+  letter-spacing: 0;
+  tab-size: 2;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  word-break: normal;
+}
+.code pre {
+  position: absolute;
+  inset: 0 0 auto 0;
+  overflow: auto;
+  pointer-events: none;
+  background: var(--field);
+  color: var(--text);
+}
+.code textarea {
+  position: relative;
+  display: block;
+  resize: vertical;
+  background: transparent;
+  color: transparent;
+  caret-color: var(--text);
+}
+.code textarea:focus-visible {
+  box-shadow: 0 0 0 1px var(--muted);
+}
+.code textarea::selection {
+  background: rgba(73, 128, 176, 0.45);
+  color: transparent;
+}
+.t-selector {
+  color: var(--c-sel);
+}
+.t-prop {
+  color: var(--c-prop);
+}
+.t-value {
+  color: var(--c-val);
+}
+.t-number {
+  color: var(--c-num);
+}
+.t-string {
+  color: var(--c-str);
+}
+.t-comment {
+  color: var(--c-com);
+  font-style: italic;
+}
+.t-at {
+  color: var(--c-at);
+}
+.t-important {
+  color: var(--c-imp);
+}
+.t-var {
+  color: var(--c-var);
+}
+.t-func {
+  color: var(--c-val);
+}
+.t-punct {
+  color: var(--c-punct);
+}
+.badge {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  z-index: 1;
+  pointer-events: none;
+  padding: 6px;
+  border-radius: 8px;
+  font-size: 12px;
+  line-height: 1;
+  letter-spacing: -0.36px;
+  background: rgba(15, 109, 77, 0.2);
+  color: var(--green);
+}
+.badge.busy {
+  background: rgba(120, 136, 145, 0.2);
+  color: var(--muted);
+}
+.badge.err {
+  background: rgba(222, 38, 59, 0.2);
+  color: var(--error);
+  white-space: normal;
+  max-width: calc(100% - 16px);
+  line-height: 1.3;
+}
+
+/* ---------- Shortcuts ---------- */
+main > .title {
+  margin-bottom: 12px;
+}
+.shortcuts kbd {
+  font: inherit;
+}
+.shortcuts .none {
+  font-style: italic;
+}
+#shortcutsBtn {
+  margin-top: 16px;
+}

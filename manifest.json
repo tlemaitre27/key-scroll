@@ -1,0 +1,78 @@
+{
+  "manifest_version": 3,
+  "name": "Key Scroll",
+  "version": "0.1.0",
+  "description": "Scroll anchors and constant frame-rate MP4 recording of a tab at an exact viewport size, for design case studies.",
+  "minimum_chrome_version": "116",
+  "icons": {
+    "16": "assets/icons/ext-16.png",
+    "32": "assets/icons/ext-32.png",
+    "48": "assets/icons/ext-48.png",
+    "128": "assets/icons/ext-128.png"
+  },
+  "permissions": ["tabCapture", "offscreen", "downloads", "scripting", "activeTab", "storage", "tabs"],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "Key Scroll"
+  },
+  "commands": {
+    "toggle-recording": {
+      "suggested_key": {
+        "default": "Alt+Shift+R",
+        "mac": "Alt+Shift+R"
+      },
+      "description": "Record / Stop"
+    },
+    "next-anchor": {
+      "suggested_key": {
+        "default": "Alt+Shift+Down",
+        "mac": "Alt+Shift+Down"
+      },
+      "description": "Go to next anchor"
+    },
+    "prev-anchor": {
+      "suggested_key": {
+        "default": "Alt+Shift+Up",
+        "mac": "Alt+Shift+Up"
+      },
+      "description": "Go to previous anchor"
+    },
+    "add-anchor": {
+      "suggested_key": {
+        "default": "Alt+Shift+A",
+        "mac": "Alt+Shift+A"
+      },
+      "description": "Add anchor"
+    },
+    "run-playback": {
+      "description": "Play"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": [
+        "lib/defaults.js",
+        "lib/easing.js",
+        "lib/pages.js",
+        "lib/cursor-icons.js",
+        "content/shared.js",
+        "content/scroll.js",
+        "content/page-style.js",
+        "content/cursor.js",
+        "content/capture-assist.js",
+        "content/picker.js",
+        "content/main.js"
+      ],
+      "run_at": "document_start"
+    }
+  ],
+  "options_ui": {
+    "page": "options/options.html",
+    "open_in_tab": true
+  }
+}

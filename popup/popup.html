@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="../styles/theme.css" />
+  <link rel="stylesheet" href="popup.css" />
+
+  <header class="top">
+    <div class="heading">
+      <img class="logo" src="../assets/icons/logo.svg" width="111" height="21.344" alt="key scroll" />
+      <div class="headBtns">
+        <button class="btn icon danger" id="hRec" title="Record"><span class="recDot"></span></button>
+        <button class="btn icon primary" id="hAdd" title="Add anchor">
+          <img src="../assets/icons/plus.svg" width="14" height="14" alt="" />
+        </button>
+      </div>
+      <div class="headLinks">
+        <button class="linkIcon" id="github" title="GitHub (coming soon)" disabled>
+          <img src="../assets/icons/github.svg" width="18" height="18" alt="GitHub" />
+        </button>
+        <button class="linkIcon" id="settings" title="Settings">
+          <img src="../assets/icons/settings.svg" width="18" height="18" alt="Settings" />
+        </button>
+      </div>
+    </div>
+    <nav class="tabs" role="tablist">
+      <button role="tab" data-tab="anchors" aria-selected="true">Anchors</button>
+      <button role="tab" data-tab="rec" aria-selected="false">Record</button>
+      <button role="tab" data-tab="cursor" aria-selected="false">Cursor</button>
+      <button role="tab" data-tab="css" aria-selected="false">CSS</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ============================== Anchors ============================== -->
+    <section class="tab" data-tab="anchors">
+      <h2 class="title" title="Speed, pause and ease given to the next anchor you add. Existing anchors keep their own values.">
+        Anchors
+      </h2>
+      <div class="fields">
+        <div class="field">
+          <label for="gSpeed">Speed <span class="unit">(px/s)</span></label
+          ><input id="gSpeed" type="number" min="1" />
+        </div>
+        <div class="field">
+          <label for="gPause">Pause <span class="unit">(ms)</span></label
+          ><input id="gPause" type="number" min="0" step="100" />
+        </div>
+        <div class="field"><label for="gEase">Ease</label><input id="gEase" class="ease" spellcheck="false" /></div>
+        <div class="withBtn">
+          <div class="field">
+            <label for="gPreset">Preset</label
+            ><select id="gPreset"></select>
+          </div>
+          <button class="btn icon" id="gCurveBtn" title="Curve editor" aria-pressed="false">
+            <img src="../assets/icons/bezier.svg" width="14" height="14" alt="" />
+          </button>
+        </div>
+      </div>
+      <div id="gCurve" class="curveHost" hidden></div>
+
+      <button class="btn primary wide" id="add">
+        <img src="../assets/icons/plus-small.svg" width="8" height="8" alt="" />Add
+        <span class="kbd" data-cmd="add-anchor"></span>
+      </button>
+      <div class="grid2">
+        <button class="btn" id="prev">
+          <img class="flipY" src="../assets/icons/arrow.svg" width="8" height="9" alt="" />Prev.
+        </button>
+        <button class="btn" id="next"><img src="../assets/icons/arrow.svg" width="8" height="9" alt="" />Next</button>
+        <button class="btn" id="play"><img src="../assets/icons/play-small.svg" width="9" height="10" alt="" />Play</button>
+        <button class="btn" id="clear"><img src="../assets/icons/trash.svg" width="10" height="10" alt="" />Delete all</button>
+      </div>
+      <div id="msg" class="msg"></div>
+
+      <div class="box empty" id="empty" hidden></div>
+      <ol id="list"></ol>
+
+      <!-- Anchor editor: moved under the row of the open anchor. -->
+      <div id="editor" hidden>
+        <p class="eTitle" id="eTitle">Anchor</p>
+        <div class="eFields">
+          <div class="field">
+            <label for="eName">Name</label><input id="eName" type="text" placeholder="Anchor name" spellcheck="false" />
+          </div>
+          <div class="withBtn">
+            <div class="field">
+              <label for="ePos">Position <span class="unit">(px)</span></label
+              ><input id="ePos" type="number" min="0" />
+            </div>
+            <button class="btn icon" id="eCur" title="Use the current scroll position">
+              <img src="../assets/icons/target.svg" width="14" height="14" alt="" />
+            </button>
+          </div>
+          <div class="field">
+            <label for="eSpeed">Speed <span class="unit">(px/s)</span></label
+            ><input id="eSpeed" type="number" min="1" />
+          </div>
+          <div class="field">
+            <label for="ePause">Pause <span class="unit">(ms)</span></label
+            ><input id="ePause" type="number" min="0" step="100" />
+          </div>
+          <div class="field"><label for="eEase">Ease</label><input id="eEase" class="ease" spellcheck="false" /></div>
+          <div class="field">
+            <label for="ePreset">Preset</label
+            ><select id="ePreset"></select>
+          </div>
+        </div>
+        <div id="eCurve" class="curveHost"></div>
+        <div class="eBtns">
+          <button class="btn" id="eReset">Reset to default</button>
+          <button class="btn" id="eClose">Close anchor</button>
+        </div>
+        <ul class="bullets">
+          <li>Empty field = default setting</li>
+          <li>Speed and ease apply to the scroll toward this anchor</li>
+          <li>The pause is for after the arrival (play mode)</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============================== Record ============================== -->
+    <section class="tab" data-tab="rec" hidden>
+      <h2 class="title sp16">Recording</h2>
+      <div class="row2">
+        <button class="btn danger" id="rec">
+          <span class="dot"></span>Record <span class="kbd" data-cmd="toggle-recording"></span>
+        </button>
+        <button class="btn" id="stop">
+          <span class="square"></span>Stop <span class="kbd" data-cmd="toggle-recording"></span>
+        </button>
+      </div>
+      <div class="toggleRow sp16">
+        <label for="hideScrollbars">Hide scrollbar</label
+        ><span class="switch"><input type="checkbox" id="hideScrollbars" /><span></span></span>
+      </div>
+      <div class="box log idle" id="out">Recording log...</div>
+
+      <hr class="divider" />
+      <h2 class="title sp16">Size</h2>
+      <div class="field">
+        <label for="preset">Preset</label>
+        <select id="preset">
+          <option value="">Preset</option>
+          <optgroup label="Standard">
+            <option value="1920x1080">1920 × 1080 (16:9)</option>
+            <option value="1440x810">1440 × 810 (16:9)</option>
+            <option value="1440x900">1440 × 900 (16:10)</option>
+            <option value="1280x720">1280 × 720 (16:9)</option>
+            <option value="1080x1350">1080 × 1350 (4:5)</option>
+            <option value="1080x1920">1080 × 1920 (9:16)</option>
+            <option value="664x1180">664 × 1180 (9:16)</option>
+            <option value="885x1180">885 × 1180 (3:4)</option>
+          </optgroup>
+        </select>
+      </div>
+      <div class="sizeRow">
+        <div class="field">
+          <label for="w">Width <span class="unit">(px)</span></label
+          ><input id="w" type="number" value="1440" />
+        </div>
+        <button
+          class="btn icon"
+          id="ratioLink"
+          type="button"
+          aria-pressed="false"
+          title="Link width and height (keeps the current ratio)"
+        >
+          <img src="../assets/icons/unlink.svg" width="14" height="14" alt="" />
+        </button>
+        <div class="field">
+          <label for="h">Height <span class="unit">(px)</span></label
+          ><input id="h" type="number" value="810" />
+        </div>
+      </div>
+      <div class="grid2 sizeBtns">
+        <button class="btn" id="apply"><img src="../assets/icons/resize.svg" width="8" height="8" alt="" />Apply size</button>
+        <button class="btn" id="reset"><img src="../assets/icons/reset.svg" width="8" height="9" alt="" />Reset</button>
+      </div>
+    </section>
+
+    <!-- ============================== Cursor ============================== -->
+    <section class="tab" data-tab="cursor" hidden>
+      <h2 class="title sp16">Cursor</h2>
+      <div class="row3">
+        <div class="field">
+          <label for="curMode">Display</label>
+          <select id="curMode">
+            <option value="on">Always</option>
+            <option value="auto">Auto</option>
+            <option value="off">Hidden</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="curStyle">Style</label>
+          <select id="curStyle">
+            <option value="custom">Custom</option>
+            <option value="mac">Mac</option>
+            <option value="windows">Windows</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="curMotion">Movement</label>
+          <select id="curMotion">
+            <option value="native">Native</option>
+            <option value="fluid">Smooth</option>
+          </select>
+        </div>
+      </div>
+      <div class="toggleRow sp16">
+        <label for="curClicks">Show clicks</label
+        ><span class="switch"><input type="checkbox" id="curClicks" /><span></span></span>
+      </div>
+    </section>
+
+    <!-- ============================== CSS ============================== -->
+    <section class="tab" data-tab="css" hidden>
+      <h2 class="title sp16">Custom CSS</h2>
+      <div class="grid2">
+        <button class="btn" id="pick" title="Click an element in the page: its selector is added below">
+          <img src="../assets/icons/target.svg" width="14" height="14" alt="" />Target element
+        </button>
+        <button
+          class="btn"
+          id="preview"
+          aria-pressed="false"
+          title="Applies the CSS to the page now. Turns on when a recording starts, then goes back to its previous state. Specific to this page (URL without parameters). Added after the site styles: add !important if a rule doesn't apply."
+        >
+          <img src="../assets/icons/eye-off.svg" width="14" height="14" alt="" /><span>Preview (off)</span>
+        </button>
+      </div>
+      <div class="cssWrap">
+        <textarea id="css" spellcheck="false" placeholder=".cookie-banner { display: none; }"></textarea>
+        <span id="cssState" class="badge" hidden></span>
+      </div>
+    </section>
+
+    <!-- ============================== Shortcuts (every tab) ============================== -->
+    <hr class="divider" />
+    <h2 class="title">Shortcuts</h2>
+    <ul class="bullets shortcuts" id="shortcuts"></ul>
+    <button class="btn" id="shortcutsBtn">Configure shortcuts</button>
+  </main>
+
+  <!-- Shared helpers (plain scripts, also used by the content scripts), then the popup modules. -->
+  <script src="../lib/defaults.js"></script>
+  <script src="../lib/easing.js"></script>
+  <script src="../lib/pages.js"></script>
+  <script src="../lib/sizes.js"></script>
+  <script src="../lib/cursor-icons.js"></script>
+  <script type="module" src="main.js"></script>
+</html>

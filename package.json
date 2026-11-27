@@ -1,0 +1,21 @@
+{
+  "name": "key-scroll",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Chromium extension: scroll anchors and constant frame-rate MP4 recording of a tab at an exact viewport size.",
+  "license": "GPL-3.0-only",
+  "scripts": {
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "node --test",
+    "check": "npm run lint && npm test",
+    "package": "zip -r key-scroll.zip manifest.json background.js lib content offscreen popup options styles assets vendor LICENSE -x '*.DS_Store'"
+  },
+  "devDependencies": {
+    "eslint": "^10.15.0",
+    "@eslint/js": "^10.0.1",
+    "globals": "^17.14.0",
+    "prettier": "^3.10.1"
+  }
+}

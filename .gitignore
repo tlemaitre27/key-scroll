@@ -1,0 +1,10 @@
+node_modules/
+.DS_Store
+*.log
+# Local preview / test helpers
+.preview/
+*-preview.html
+# Packaged builds
+*.zip
+*.crx
+*.pem
