@@ -20,6 +20,7 @@ Versions up to 0.1.0 were built before the project was on GitHub, so they have n
 ### Changed
 
 - The extension no longer asks for the "tabs" permission (the site access it already has covers what it needs).
+- The 128 px extension icon has the margins recommended by the Chrome Web Store.
 
 ## [0.1.0]
 
