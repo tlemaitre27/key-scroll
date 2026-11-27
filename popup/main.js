@@ -120,6 +120,7 @@ async function init() {
   state.next = { ...KS_ANCHOR_DEFAULTS, ...((await chrome.storage.local.get('globals')).globals || {}) };
 
   $('settings').addEventListener('click', () => chrome.runtime.openOptionsPage());
+  $('github').addEventListener('click', () => chrome.tabs.create({ url: chrome.runtime.getManifest().homepage_url }));
   setupUpdateNotice();
   setupCssTab();
   setupTabs();

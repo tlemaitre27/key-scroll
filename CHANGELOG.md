@@ -14,6 +14,12 @@ Versions up to 0.1.0 were built before the project was on GitHub, so they have n
 
 - Changelog of every version since the first prototype.
 - "What's new" in the settings page, with a one-time notice in the popup after an update.
+- Privacy policy (`PRIVACY.md`).
+- The GitHub button of the popup opens the project page.
+
+### Changed
+
+- The extension no longer asks for the "tabs" permission (the site access it already has covers what it needs).
 
 ## [0.1.0]
 
