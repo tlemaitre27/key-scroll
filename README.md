@@ -134,7 +134,7 @@ After an update, the popup shows a one-time notice that links to What's new.
 
 ## Credits
 
-- [mp4-muxer](https://github.com/Vanilagy/mp4-muxer) by Vanilagy, MIT license (`vendor/mp4-muxer.LICENSE`).
+- [mp4-muxer](https://github.com/Vanilagy/mp4-muxer) by Vanilagy, MIT license (`vendor/mp4-muxer.LICENSE.txt`).
 - Fonts: [Asta Sans](https://github.com/42dot/Asta-Sans) and [DM Mono](https://github.com/googlefonts/dm-mono), SIL Open Font License 1.1 (`assets/fonts/`).
 
 ## License
